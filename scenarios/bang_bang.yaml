@@ -1,0 +1,20 @@
+name: "Bang-Bang"
+description: "Alternating max-g jinks — the hardest classical evasion. Watch the commanded-g needle peg."
+seed: 99
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: apn, N: 5 }
+  airframe: { a_max_g: 45, autopilot_tau: 0.15 }
+  seeker: { ideal: true }
+
+target:
+  speed: 350
+  position: [9000, 0]
+  heading: 180
+  a_max_g: 12
+  maneuver: { type: bang_bang, amplitude_g: 12, period_s: 1.5, start_s: 1.0 }
+
+termination: { lethal_radius_m: 6, t_max_s: 16 }

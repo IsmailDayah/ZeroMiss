@@ -1,0 +1,20 @@
+name: "Random Jink"
+description: "Unpredictable bang-bang with randomised switch times (seeded). APN vs the chaos."
+seed: 2024
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: apn, N: 5 }
+  airframe: { a_max_g: 45, autopilot_tau: 0.18 }
+  seeker: { ideal: true }
+
+target:
+  speed: 350
+  position: [8500, -400]
+  heading: 175
+  a_max_g: 11
+  maneuver: { type: jink, amplitude_g: 11, start_s: 1.0, mean_interval_s: 0.7 }
+
+termination: { lethal_radius_m: 5, t_max_s: 16 }

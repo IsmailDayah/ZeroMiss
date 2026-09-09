@@ -1,0 +1,45 @@
+site_name: ZeroMiss — The Interception Lab
+site_description: A validated missile-guidance interception simulator (Python core + TypeScript twin).
+site_url: https://zeromiss-nu.vercel.app/
+repo_url: https://github.com/IsmailDayah/ZeroMiss
+repo_name: IsmailDayah/ZeroMiss
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+    accent: cyan
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - tables
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - How it works: how-it-works.md
+  - The physics: physics.md
+  - The guidance laws: guidance.md
+  - Seeker & airframe: sensors.md
+  - Validation (V&V): validation.md
+  - Five-language verification: crosslang.md
+  - Monte Carlo & P_k: montecarlo.md
+  - The TypeScript twin: twin.md
+  - API & CLI: api.md
+  - References: REFERENCES.md
+  - Engineering report: zeromiss_report.md
+  - Ethics & export posture: ethics.md

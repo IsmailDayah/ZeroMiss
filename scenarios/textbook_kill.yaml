@@ -1,0 +1,16 @@
+name: "Textbook Kill"
+description: "Head-on, constant-velocity target, ideal seeker. PN's defining property: miss ~ 0 for N>=3."
+seed: 7
+
+missile:
+  guidance: { law: tpn, N: 4 }
+  airframe: { ideal: true }
+  seeker: { ideal: true }
+
+target:
+  speed: 300
+  position: [8000, 600]
+  heading: 195
+  maneuver: { type: constant_velocity }
+
+termination: { lethal_radius_m: 5, t_max_s: 15 }

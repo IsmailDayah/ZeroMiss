@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+title: "ZeroMiss: a validated missile-guidance interception simulator"
+abstract: >-
+  An interception simulator for the mathematics of pursuit. A Python
+  source-of-truth engine implements pursuit, PPN, TPN, APN and ZEM-optimal
+  guidance over a fixed-step RK4 integrator, with seeker lag, noise, field of
+  view and loss of lock, airframe acceleration limits and autopilot lag, and
+  vectorised Monte-Carlo campaigns for probability of kill and CEP. Correctness
+  is demonstrated rather than claimed: the suite reproduces known results
+  (zero miss for N >= 3 against a non-manoeuvring target, heading-error washout,
+  the Zarchan step-manoeuvre miss curve, APN cancelling a lag-induced step miss
+  that TPN cannot, and fourth-order RK4 convergence). The guidance core is
+  independently re-implemented in TypeScript, MATLAB/Octave, C++ and a Simulink
+  block diagram, and continuous integration asserts the browser twin reproduces
+  every Python reference run to within 0.1 per cent.
+type: software
+authors:
+  - family-names: Abdullahi
+    given-names: Ismail Dayah
+    alias: IsmailDayah
+license: MIT
+repository-code: "https://github.com/IsmailDayah/ZeroMiss"
+url: "https://zeromiss-nu.vercel.app"
+version: 0.1.0
+date-released: 2026-09-10
+keywords:
+  - proportional navigation
+  - guidance navigation and control
+  - interception
+  - Kalman filter
+  - interacting multiple model
+  - Monte Carlo
+  - verification and validation
+  - numerical integration

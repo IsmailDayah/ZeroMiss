@@ -1,0 +1,41 @@
+# Nominal, idealized, textbook-range defaults.
+# All values are SI / dimensionless. NO real platform data (see ETHICS.md).
+# Every scenario in this directory is deep-merged ON TOP of these defaults.
+
+missile:
+  speed: 1000            # m/s (~Mach 3), constant-speed point mass
+  position: [0, 0]       # m
+  heading: 0             # deg (CCW from +x)
+  guidance:
+    law: tpn
+    N: 4
+    use_target_accel: true
+  airframe:
+    a_max_g: 40          # g
+    autopilot_tau: 0.2   # s
+    order: 1
+    zeta: 0.7
+  seeker:
+    ideal: true          # presets override to expose seeker realism
+    tau: 0.1             # s
+    noise_mrad: 1.0
+    glint: false
+    fov_deg: 30
+    update_hz: 100
+
+target:
+  speed: 300             # m/s (~Mach 0.9)
+  position: [8000, 0]    # m
+  heading: 180           # deg (closing head-on)
+  a_max_g: 9
+  maneuver:
+    type: constant_velocity
+
+termination:
+  lethal_radius_m: 5
+  t_max_s: 15
+
+dynamics:
+  dt: 0.001              # 1 kHz physics
+  induced_drag: false
+  gravity: false

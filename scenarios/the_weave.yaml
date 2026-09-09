@@ -1,0 +1,28 @@
+name: "The Weave"
+description: "9-g sinusoidal evader; APN should beat TPN here because it feeds the maneuver forward."
+seed: 1337
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: apn, N: 4 }
+  airframe: { a_max_g: 40, autopilot_tau: 0.2 }
+  seeker: { ideal: true }
+
+target:
+  speed: 300
+  position: [8000, 500]
+  heading: 180
+  a_max_g: 9
+  maneuver: { type: weave, amplitude_g: 9, period_s: 2.0, start_s: 1.0 }
+
+termination: { lethal_radius_m: 5, t_max_s: 15 }
+
+montecarlo:
+  runs: 20000
+  randomize:
+    R0:                { dist: uniform, lo: 6000, hi: 10000 }
+    HE_deg:            { dist: normal,  mu: 0, sigma: 10 }
+    weave.start_s:     { dist: uniform, lo: 0.5, hi: 2.5 }
+    seeker.noise_mrad: { dist: uniform, lo: 0.5, hi: 3.0 }

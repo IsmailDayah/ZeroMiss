@@ -1,0 +1,36 @@
+name: Refresh media
+
+# Re-renders the README/docs GIFs and figures from the *current* engine so the media can
+# never drift from the code. Runs on demand and weekly.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e ".[dev,data,media,docs]"
+      - name: Re-render figures and clips
+        run: python notebooks/make_figures.py
+      - name: Regenerate the engineering report PDF
+        run: python notebooks/make_report_pdf.py
+      - name: Commit refreshed media if changed
+        run: |
+          git config user.name "Ismail Dayah Abdullahi"
+          git config user.email "157276894+IsmailDayah@users.noreply.github.com"
+          if [ -n "$(git status --porcelain docs/media docs/zeromiss.pdf)" ]; then
+            git add docs/media docs/zeromiss.pdf
+            git commit -m "ci: refresh generated media + report from the engine"
+            git push
+          else
+            echo "Media already up to date."
+          fi

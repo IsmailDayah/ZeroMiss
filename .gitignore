@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+reports/
+site/
+native/*.so
+native/*.pyd
+native/*.dll
+native/build/
+
+# MATLAB / Simulink build caches (the .slx model itself IS tracked)
+slprj/
+*.slxc
+*.autosave
+matlab/slprj/
+
+# Node / web
+web/node_modules/
+web/.next/
+web/out/
+web/playwright-report/
+web/test-results/
+web/*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Keep generated hero media tracked (README depends on it):
+!docs/media/
+# ...except throwaway QA playtest/mode captures (SHOTS=1 e2e/*.spec.ts)
+docs/media/screens/pt_*.png
+docs/media/screens/mode_*.png
+
+# Simulink .slx is a generated build artifact (regenerate via matlab/build_zeromiss_simulink.m,
+# which is the tracked source of truth). The binary isn't byte-deterministic.
+zeromiss_engagement.slx
+slprj/
+
+# secrets and local config - never commit
+.env
+.env.*
+!.env.example
+.vercel/
+*.pem
+*.key

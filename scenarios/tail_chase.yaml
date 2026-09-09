@@ -1,0 +1,19 @@
+name: "Tail Chase"
+description: "Pure pursuit against a crossing target — the naive method curves in behind and arrives late."
+seed: 7
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 20
+  guidance: { law: pursuit, N: 5 }
+  airframe: { a_max_g: 40, autopilot_tau: 0.15 }
+  seeker: { ideal: true }
+
+target:
+  speed: 350
+  position: [6000, 2500]
+  heading: 200
+  maneuver: { type: constant_velocity }
+
+termination: { lethal_radius_m: 5, t_max_s: 20 }

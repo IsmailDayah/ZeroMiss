@@ -1,0 +1,26 @@
+name: "Tracker in the Loop"
+description: "Radar EKF/IMM estimates a noisy track and feeds the seeker — estimation + sensor fusion."
+seed: 11
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: apn, N: 4 }
+  airframe: { a_max_g: 40, autopilot_tau: 0.2 }
+  seeker: { ideal: true }          # the tracker replaces the noisy-seeker model
+  tracker:
+    enabled: true
+    model: imm
+    sigma_r_m: 25
+    sigma_beta_mrad: 6
+    radar_hz: 50
+
+target:
+  speed: 300
+  position: [8000, 500]
+  heading: 180
+  a_max_g: 9
+  maneuver: { type: weave, amplitude_g: 9, period_s: 2.0, start_s: 1.0 }
+
+termination: { lethal_radius_m: 8, t_max_s: 15 }

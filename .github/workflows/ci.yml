@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  workflow-lint:
+    name: Workflow lint (actionlint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: actionlint
+        run: |
+          curl -sSfL https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz | tar xz actionlint
+          ./actionlint -color
+
+  engine:
+    name: Python engine — lint, test, validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install
+        run: pip install -e ".[dev,data,media,docs]"
+      - name: Lint (ruff)
+        run: ruff check engine tests
+      - name: Unit + validation tests (coverage gate 85%)
+        run: pytest -q --cov=zeromiss --cov-fail-under=85
+      - name: Validation suite
+        run: zeromiss validate
+      - name: Docs build (strict)
+        run: mkdocs build --strict
+      - name: Re-export fixtures and assert no drift
+        run: |
+          zeromiss export-fixtures --out fixtures
+          git diff --exit-code -- fixtures || \
+            (echo "::error::Fixtures drifted from the engine. Run 'zeromiss export-fixtures --out fixtures'." && exit 1)
+
+  cross-language:
+    name: Cross-language V&V — C++ (pybind11) + Octave
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Drop the preinstalled Chrome apt source
+        # The runner image ships Google's Chrome repo, whose published Release file and
+        # Packages.gz have gone out of sync upstream, so any `apt-get update` aborts with
+        # a hash-sum mismatch. Nothing here needs it: Playwright downloads its own
+        # Chromium, and Octave/build-essential come from the Ubuntu archives.
+        run: sudo rm -f /etc/apt/sources.list.d/google-chrome*.list /etc/apt/sources.list.d/google-chrome*.sources
+      - name: System deps (compiler + Octave)
+        run: sudo apt-get update && sudo apt-get install -y build-essential octave
+      - name: Install
+        run: pip install -e ".[dev,data,media]" pybind11
+      - name: Build the C++ extension
+        run: python setup_native.py build_ext --inplace
+        working-directory: native
+      - name: Python ↔ C++ cross-check
+        run: pytest tests/test_native_crosscheck.py -q
+      - name: Python ↔ Octave cross-check
+        run: pytest tests/test_matlab_crosscheck.py -q
+
+  twin:
+    name: TypeScript twin — crossval, build, E2E
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Cross-validation (Python ↔ TS, < 0.1%)
+        run: npm run crossval
+      - name: Build (static export)
+        run: npm run build
+      - name: Drop the preinstalled Chrome apt source
+        # The runner image ships Google's Chrome repo, whose published Release file and
+        # Packages.gz have gone out of sync upstream, so any `apt-get update` aborts with
+        # a hash-sum mismatch. Nothing here needs it: Playwright downloads its own
+        # Chromium, and Octave/build-essential come from the Ubuntu archives.
+        run: sudo rm -f /etc/apt/sources.list.d/google-chrome*.list /etc/apt/sources.list.d/google-chrome*.sources
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: E2E
+        run: npm run e2e -- --project=chromium

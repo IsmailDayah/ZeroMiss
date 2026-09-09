@@ -1,0 +1,20 @@
+name: "Duel"
+description: "You fly the jet (Live target). A ProNav interceptor hunts you — try to escape (used by the browser /duel mode)."
+seed: 0
+
+missile:
+  speed: 900
+  position: [0, 0]
+  heading: 0
+  guidance: { law: tpn, N: 4 }
+  airframe: { a_max_g: 40, autopilot_tau: 0.2 }
+  seeker: { ideal: false, tau: 0.08, noise_mrad: 0.0, fov_deg: 45, update_hz: 120 }
+
+target:
+  speed: 350
+  position: [7000, 0]
+  heading: 180
+  a_max_g: 9
+  maneuver: { type: live }
+
+termination: { lethal_radius_m: 6, t_max_s: 25 }

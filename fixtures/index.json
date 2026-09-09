@@ -1,0 +1,51 @@
+[
+  {
+    "id": "cv_tpn_headon",
+    "name": "CV head-on (TPN)",
+    "file": "cv_tpn_headon.json",
+    "verdict": "HIT",
+    "miss": 0.416842
+  },
+  {
+    "id": "cv_ppn",
+    "name": "CV crossing (PPN)",
+    "file": "cv_ppn.json",
+    "verdict": "HIT",
+    "miss": 0.03128
+  },
+  {
+    "id": "pursuit_tail",
+    "name": "Tail chase (pursuit)",
+    "file": "pursuit_tail.json",
+    "verdict": "MISS",
+    "miss": 12.418771
+  },
+  {
+    "id": "step_tpn",
+    "name": "Step maneuver (TPN)",
+    "file": "step_tpn.json",
+    "verdict": "HIT",
+    "miss": 0.252703
+  },
+  {
+    "id": "weave_apn",
+    "name": "Weave (APN)",
+    "file": "weave_apn.json",
+    "verdict": "HIT",
+    "miss": 1.520039
+  },
+  {
+    "id": "weave_ogl",
+    "name": "Weave (ZEM/OGL)",
+    "file": "weave_ogl.json",
+    "verdict": "HIT",
+    "miss": 1.520039
+  },
+  {
+    "id": "bangbang_apn",
+    "name": "Bang-bang (APN)",
+    "file": "bangbang_apn.json",
+    "verdict": "MISS",
+    "miss": 9.496789
+  }
+]

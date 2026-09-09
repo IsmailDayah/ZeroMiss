@@ -1,0 +1,21 @@
+name: "Decoy Break"
+description: "A crossing target pops a terminal decoy/flare that seduces the seeker — countermeasures in action."
+seed: 1
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: tpn, N: 4 }
+  airframe: { a_max_g: 40, autopilot_tau: 0.2 }
+  seeker: { ideal: false, tau: 0.05, noise_mrad: 0.0, fov_deg: 80, update_hz: 100 }
+
+target:
+  speed: 350
+  position: [7000, 2600]
+  heading: 215
+  a_max_g: 9
+  maneuver: { type: constant_velocity }
+  countermeasure: { enabled: true, type: decoy, deploy_s: 4.5, duration_s: 1.5, decel_per_s: 5.0 }
+
+termination: { lethal_radius_m: 5, t_max_s: 15 }

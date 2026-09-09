@@ -1,0 +1,8 @@
+Sky HDRIs are from Poly Haven (https://polyhaven.com) and are licensed CC0
+(public domain) — no attribution required, included here as a courtesy.
+
+  sky_golden.hdr  — "kloppenheim_06_puresky"            (Greg Zaal / Jarod Guest)
+  sky_blue.hdr    — "qwantani_puresky"                   (Greg Zaal / Jarod Guest)
+  sky_clouds.hdr  — "kloofendal_48d_partly_cloudy_puresky" (Greg Zaal)
+
+Used as the Arena's sky background + image-based lighting (IBL) environment map.

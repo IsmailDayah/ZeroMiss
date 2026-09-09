@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #070b14;
+  --panel: #0c1322;
+  --grid: #16233a;
+  --cyan: #37e0e6;
+  --amber: #ffb454;
+  --danger: #ff5d5d;
+  --muted: #7c8aa5;
+  --ink: #f4f8ff;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 1, "ss01" 1; /* tabular figures so the HUD never jitters */
+}
+
+body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, rgba(55, 224, 230, 0.06), transparent 60%),
+    linear-gradient(to bottom, #070b14, #05080f);
+  min-height: 100vh;
+}
+
+/* Tabular, technical readouts */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Faint receding grid background for "expensive instrument" feel */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  opacity: 0.35;
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md border border-grid bg-panel px-4 py-2 text-sm font-medium text-ink transition;
+}
+.btn:hover {
+  @apply border-cyan-dim;
+  box-shadow: 0 0 16px rgba(55, 224, 230, 0.18);
+}
+.btn-primary {
+  @apply border-cyan bg-cyan/10 text-cyan;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 24px rgba(55, 224, 230, 0.35);
+}
+
+.card {
+  @apply rounded-xl border border-grid bg-panel/80 backdrop-blur;
+}
+
+.chip {
+  @apply rounded-full border border-grid bg-panel px-2.5 py-0.5 text-xs text-muted;
+}
+
+/* Focus visibility for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+input[type="range"] {
+  accent-color: var(--cyan);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

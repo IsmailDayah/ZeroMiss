@@ -1,0 +1,10 @@
+node_modules/
+.next/
+# local env files — never commit
+.env*.local
+out/
+*.tsbuildinfo
+next-env.d.ts.bak
+playwright-report/
+test-results/
+.vercel

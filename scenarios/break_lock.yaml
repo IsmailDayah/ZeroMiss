@@ -1,0 +1,27 @@
+name: "Break Lock"
+description: "A hard-jinking target near a narrow seeker FOV — it can break lock and the interceptor coasts."
+seed: 5
+
+missile:
+  speed: 1000
+  position: [0, 0]
+  heading: 0
+  guidance: { law: tpn, N: 4 }
+  airframe: { a_max_g: 35, autopilot_tau: 0.25 }
+  seeker:
+    ideal: false
+    tau: 0.1
+    noise_mrad: 0.0
+    glint: false
+    fov_deg: 18
+    update_hz: 100
+    loss_of_lock_timeout_s: 0.3
+
+target:
+  speed: 400
+  position: [7000, 1200]
+  heading: 200
+  a_max_g: 14
+  maneuver: { type: bang_bang, amplitude_g: 14, period_s: 1.0, start_s: 0.8 }
+
+termination: { lethal_radius_m: 5, t_max_s: 16 }
