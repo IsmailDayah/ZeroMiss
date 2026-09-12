@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Replay — ZeroMiss",
   description: "Replay a specific engagement from its seed.",
+  alternates: { canonical: "/replay" },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

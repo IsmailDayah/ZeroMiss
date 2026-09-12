@@ -20,7 +20,7 @@
   <img alt="engine tests" src="https://img.shields.io/badge/engine-149%20tests-37e0e6">
   <img alt="twin cross-validation" src="https://img.shields.io/badge/Python%E2%86%94TS%20crossval-%3C0.1%25-37e0e6">
   <img alt="coverage" src="https://img.shields.io/badge/coverage-95%25-37e0e6">
-  <img alt="e2e" src="https://img.shields.io/badge/e2e-18%20passing-37e0e6">
+  <img alt="e2e" src="https://img.shields.io/badge/e2e-26%20passing-37e0e6">
   <img alt="V&V" src="https://img.shields.io/badge/V%26V-5%20languages-37e0e6">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-7c8aa5">
 </p>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "3-D engagement — ZeroMiss",
   description: "True 3-D proportional navigation against an out-of-plane climbing or barrelling target.",
+  alternates: { canonical: "/threed" },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

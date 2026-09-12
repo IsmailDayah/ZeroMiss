@@ -3,6 +3,7 @@ import { JetBrains_Mono, Inter } from "next/font/google";
 
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
+import { SITE_URL } from "@/lib/site";
 
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
@@ -18,7 +19,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: "/og.png", width: 1170, height: 780, alt: "A ZeroMiss interception" }],
   },
-  metadataBase: new URL("https://zeromiss-nu.vercel.app"),
+  metadataBase: new URL(SITE_URL),
+  // Without a canonical each page inherits nothing and search engines have
+  // to guess; every route below declares its own.
+  alternates: { canonical: "/" },
 };
 
 export const viewport: Viewport = {
